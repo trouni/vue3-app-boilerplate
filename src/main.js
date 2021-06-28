@@ -1,16 +1,16 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+
+const vueApp = createApp(App)
+
+// Globally register all `_base`-prefixed components
+import globals from '@/components/globals'
+globals(vueApp)
 
 // FontAwesome
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faPhone);
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+vueApp.component('font-awesome-icon', FontAwesomeIcon)
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .component("font-awesome-icon", FontAwesomeIcon)
-  .mount("#app");
+vueApp.use(store).use(router).mount('#app')

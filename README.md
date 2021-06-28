@@ -1,4 +1,4 @@
-# checkin
+# Vue App Template
 
 ## Project setup
 ```

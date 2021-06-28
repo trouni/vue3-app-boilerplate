@@ -1,30 +1,50 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="pt-8 flex flex-col justify-center items-center">
+    <router-view />
   </div>
-  <router-view />
 </template>
 
 <style lang="scss">
+// Style loading bar between pages.
+// https://github.com/rstacruz/nprogress
+@import '~nprogress/nprogress.css';
+@import './assets/tailwind.css';
+
+*,
+*::before,
+*::after {
+  // Deactivate text selection on mobile
+  @apply select-none md:select-auto;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  -ms-user-drag: none;
+  user-drag: none;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+input,
+textarea {
+  @apply select-text;
+}
+
+html {
+  // Fix the page to avoid overscroll on mobile app
+  @apply fixed md:static w-screen md:w-auto h-screen md:h-auto;
+  overscroll-behavior: none;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+// ===
+// Vendor
+// ===
+#nprogress .bar {
+  background: blue;
 }
 </style>
