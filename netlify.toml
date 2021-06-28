@@ -1,0 +1,18 @@
+[build]
+publish = "dist/"
+command = "yarn build"
+
+[build.environment]
+# Build Previews
+NODE_ENV = "production"
+YARN_FLAGS = "--production=false"
+VUE_APP_API_URL = "https://staging.api.myapp.com"
+
+[context.production.environment]
+VUE_APP_API_URL = "https://api.myapp.com"
+
+# Redirect rule for compatibility with Vue Router
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
