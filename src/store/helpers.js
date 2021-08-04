@@ -8,3 +8,5 @@ export const authComputed = {
 }
 
 export const authMethods = mapActions('auth', ['logIn', 'logOut', 'signUp'])
+
+export const alertMethods = mapActions(['setAlert', 'resetAlert'])

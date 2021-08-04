@@ -53,14 +53,16 @@ export const actions = {
   },
 
   // Logs out the current user.
-  async logOut({ commit }) {
-    try {
-      await logOut()
-    } finally {
-      commit('SET_CURRENT_USER', null)
-      commit('SET_AUTH_HEADERS', null)
-      clearLocalStorage()
-      router.go() // Refreshes the page with resets the in-memory store
+  async logOut({ getters, commit }) {
+    if (getters.loggedIn) {
+      try {
+        await logOut()
+      } finally {
+        commit('SET_CURRENT_USER', null)
+        commit('SET_AUTH_HEADERS', null)
+        clearLocalStorage()
+        router.go() // Refreshes the page which resets the in-memory store
+      }
     }
   },
 
