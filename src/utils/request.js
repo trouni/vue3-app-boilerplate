@@ -5,12 +5,13 @@ import store from '@/store'
 // create an axios instance
 const service = axios.create({
   baseURL: `${config.apiURL}/${config.apiVersion}`,
-  timeout: 5000, // request timeout
+  timeout: 15000, // request timeout
 })
 
 // request interceptor
 service.interceptors.request.use(
   serviceConfig => {
+    store.dispatch('setFetchingRequest', true)
     const authHeaders = store.getters['auth/headers']
     serviceConfig.headers = { ...serviceConfig.headers, ...authHeaders }
     return serviceConfig
@@ -29,18 +30,33 @@ service.interceptors.response.use(
     // Need to check first if a new access token has been provided.
     if (response.headers['access-token'])
       store.dispatch('auth/updateHeaders', response.headers)
+    store.dispatch('setFetchingRequest', false)
     return response
   },
   error => {
-    if (
-      store.getters['auth/loggedIn'] &&
-      error.response &&
-      error.response.status === 401
-    )
+    // Network Error
+    if (error.toJSON().message == 'Network Error')
+      store.dispatch('setAlert', {
+        title: 'Seems like there are connection issues',
+        messages: [
+          'Check your internet connection.',
+        ],
+      })
+
+    // Unauthorized Error
+    if (store.getters['auth/loggedIn'] && error?.response?.status === 401)
       store.dispatch('auth/logOut')
 
-    console.warn(error)
-    return Promise.reject(error)
+    // Other errors
+    const messages = error?.response?.data || error?.response || error
+    if (messages?.errors)
+      store.dispatch('setAlert', {
+        title: 'Oops, something went wrong...',
+        messages: messages.errors,
+      })
+
+    store.dispatch('setFetchingRequest', false)
+    return Promise.reject(messages)
   }
 )
 
