@@ -4,12 +4,12 @@ export default [
   {
     path: '/',
     name: 'home',
-    component: () => import('@/views/Home'),
+    component: () => import('@/pages/Home'),
   },
   {
     path: '/logout',
     name: 'logout',
-    component: () => import('@/views/Login'),
+    component: () => import('@/pages/Login'),
     meta: {
       title: 'Logout',
       beforeResolve(routeTo, routeFrom, next) {
@@ -25,7 +25,7 @@ export default [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/Login'),
+    component: () => import('@/pages/Login'),
     meta: {
       title: 'Login',
       beforeResolve(routeTo, routeFrom, next) {
@@ -42,7 +42,7 @@ export default [
     // {
     //   path: '/page',
     //   name: 'page',
-    //   component: () => import('@/views/page'),
+    //   component: () => import('@/pages/page'),
     //   props: () => ({ propName: value }),
     //   meta: {
     //     authRequired: true,
