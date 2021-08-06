@@ -1,8 +1,43 @@
 <template>
-  <div class="pt-8 flex flex-col justify-center items-center">
-    <router-view />
+  <div class="min-h-screen">
+    <app-header />
+    <div class="pt-8">
+      <router-view />
+      <transition>
+        <base-spinner
+          v-if="appLoading"
+          class="
+            top-1/2
+            left-1/2
+            transform
+            -translate-x-1/2 -translate-y-1/2
+            fixed
+          "
+        />
+      </transition>
+    </div>
   </div>
 </template>
+
+<script>
+import AppHeader from '@/components/AppHeader'
+import { useStore } from 'vuex'
+import { computed, onMounted } from 'vue'
+
+export default {
+  components: { AppHeader },
+
+  setup() {
+    const store = useStore()
+
+    onMounted(() => {
+      store.dispatch('setDOMLoaded')
+    })
+
+    return { appLoading: computed(() => store.getters['appLoading']) }
+  },
+}
+</script>
 
 <style lang="scss">
 // Style loading bar between pages.
@@ -39,6 +74,17 @@ html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Default transition */
+.v-enter-active,
+.v-leave-active {
+  @apply absolute transition-opacity duration-300;
+}
+
+.v-enter,
+.v-leave-to {
+  @apply opacity-0;
 }
 
 // ===

@@ -1,12 +1,14 @@
 <template>
   <button
     class="
-      rounded-lg
+      rounded
       shadow
-      bg-red-500
-      hover:bg-red-400
-      active:bg-red-600 active:scale-95
+      bg-blue-500
+      hover:bg-blue-400
+      active:bg-blue-600 active:scale-95
       transform
+      px-4
+      py-2
     "
   >
     <slot />

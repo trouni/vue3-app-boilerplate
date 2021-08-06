@@ -1,17 +1,9 @@
 <template>
-  <div class="flex flex-col justify-center items-center">
-    <BaseIcon name="futbol" class="animate-bounce fa-3x"></BaseIcon>
-    <div
-      class="
-        animate-bounce-opacity
-        bg-black
-        w-6
-        h-1
-        rounded-full
-        filter
-        blur-sm
-      "
-    ></div>
+  <div class="flex flex-col items-center justify-center">
+    <BaseIcon
+      name="globe-americas"
+      class="fa-2x sm:fa-3x text-gray-700 text-opacity-50 animate-spin"
+    ></BaseIcon>
     <p class="mt-3">{{ message }}</p>
   </div>
 </template>

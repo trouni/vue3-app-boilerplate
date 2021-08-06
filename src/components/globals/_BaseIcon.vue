@@ -17,6 +17,7 @@ import { library as fontAwesomeIconLibrary } from '@fortawesome/fontawesome-svg-
 import camelCase from 'lodash/camelCase'
 // https://fontawesome.com/icons
 fontAwesomeIconLibrary.add(
+  require('@fortawesome/free-solid-svg-icons/faGlobeAmericas').definition,
   require('@fortawesome/free-solid-svg-icons/faSignInAlt').definition,
   require('@fortawesome/free-solid-svg-icons/faSignOutAlt').definition
 )

@@ -10,7 +10,6 @@
         <BaseButton @click="register = true">Register</BaseButton>
       </p>
       <div>
-        <p>Email</p>
         <p v-if="authError" v-html="authError"></p>
         <BaseInputText
           v-model.trim="email"
@@ -20,7 +19,6 @@
           autofocus
           @keypress.enter="submit"
         />
-        <p>Password</p>
         <BaseInputText
           id="password"
           v-model="password"

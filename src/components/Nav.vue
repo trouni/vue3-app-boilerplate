@@ -16,7 +16,7 @@ export default {
     return {
       loggedInNavRoutes: [
         {
-          name: 'logout',
+          name: 'Logout',
           title: 'Log out',
           icon: {
             name: 'sign-out-alt',
@@ -25,7 +25,7 @@ export default {
       ],
       loggedOutNavRoutes: [
         {
-          name: 'login',
+          name: 'Login',
           title: 'Log in',
           icon: {
             name: 'sign-in-alt',

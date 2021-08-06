@@ -1,33 +1,47 @@
 <template>
-  <input
-    :type="type"
-    v-bind="
-      $attrs
-      // https://vuejs.org/v2/guide/components-props.html#Disabling-Attribute-Inheritance
-    "
-    @input="$emit('update:model-value', $event.target.value)"
-  />
+  <base-label :class="labelClass" :for="name">
+    {{ label }}
+    <input
+      :type="type"
+      :name="name"
+      :value="modelValue"
+      @input="
+        $emit(
+          'update:modelValue',
+          this.type === 'number'
+            ? parseInt($event.target.value)
+            : $event.target.value
+        )
+      "
+      v-bind="$attrs"
+      :autocomplete="autocomplete ? 'on' : 'off'"
+      class="block mt-2 w-full h-16 bg-white border sm:mt-4"
+    />
+  </base-label>
 </template>
 
 <script>
 export default {
-  // Disable automatic attribute inheritance, so that $attrs are
-  // passed to the <input>, even if it's not the root element.
-  // https://vuejs.org/v2/guide/components-props.html#Disabling-Attribute-Inheritance
   inheritAttrs: false,
-  // Change the v-model event name to `update` to avoid changing
-  // the behavior of the native `input` event.
-  // https://vuejs.org/v2/guide/components-custom-events.html#Customizing-Component-v-model
-  model: {
-    event: 'update',
-  },
+
   props: {
+    autocomplete: Boolean,
+    modelValue: [String, Number],
+    label: {
+      type: String,
+      required: false,
+    },
+    labelClass: {
+      type: String,
+      required: false,
+    },
     type: {
       type: String,
       default: 'text',
       // Only allow types that essentially just render text boxes.
       validator(value) {
         return [
+          'date',
           'email',
           'number',
           'password',
@@ -37,6 +51,12 @@ export default {
           'url',
         ].includes(value)
       },
+    },
+  },
+
+  computed: {
+    name() {
+      return this.label?.toLowerCase()
     },
   },
 }

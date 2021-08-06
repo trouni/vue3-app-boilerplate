@@ -3,12 +3,12 @@ import store from '@/store'
 export default [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: () => import('@/pages/Home'),
   },
   {
     path: '/logout',
-    name: 'logout',
+    name: 'Logout',
     component: () => import('@/pages/Login'),
     meta: {
       title: 'Logout',
@@ -24,7 +24,7 @@ export default [
   },
   {
     path: '/login',
-    name: 'login',
+    name: 'Login',
     component: () => import('@/pages/Login'),
     meta: {
       title: 'Login',
@@ -41,7 +41,7 @@ export default [
     },
     // {
     //   path: '/page',
-    //   name: 'page',
+    //   name: 'Page',
     //   component: () => import('@/pages/page'),
     //   props: () => ({ propName: value }),
     //   meta: {
