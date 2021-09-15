@@ -1,38 +1,58 @@
 <template>
   <div class="flex flex-col justify-center items-center">
-    <div class="w-full md:w-6/12">
-      <p v-if="register">
-        Already got an account?
-        <BaseButton @click="register = false">Log in</BaseButton>
-      </p>
-      <p v-else>
-        Need an account?
-        <BaseButton @click="register = true">Register</BaseButton>
-      </p>
-      <div>
-        <p v-if="authError" v-html="authError"></p>
-        <BaseInputText
-          v-model.trim="email"
-          label="Email"
-          name="email"
-          type="text"
-          autofocus
-          @keypress.enter="submit"
-        />
-        <BaseInputText
-          id="password"
-          v-model="password"
-          label="Password"
-          name="password"
-          type="password"
-          @keypress.enter="submit"
-        />
-        <div>
-          <BaseButton :disabled="processingForm" @click="submit">
-            {{ register ? 'Sign up' : 'Login' }}
-          </BaseButton>
-        </div>
+    <div
+      class="
+        w-11/12
+        md:w-6/12
+        flex flex-col
+        gap-y-3
+        shadow-md
+        p-5
+        rounded
+        border
+      "
+    >
+      <div class="sm:flex justify-between items-center gap-5">
+        <h2 class="text-xl font-bold">
+          {{ register ? 'Register' : 'Sign in' }}
+        </h2>
+        <p v-if="register">
+          Already got an account?
+          <span @click="register = false" class="underline cursor-pointer">
+            Log in
+          </span>
+        </p>
+        <p v-else>
+          Need an account?
+          <span @click="register = true" class="underline cursor-pointer">
+            Register
+          </span>
+        </p>
       </div>
+      <BaseInputText
+        v-model.trim="email"
+        placeholder="Email"
+        name="email"
+        type="text"
+        autofocus
+        @keypress.enter="submit"
+      />
+      <BaseInputText
+        id="password"
+        v-model="password"
+        placeholder="Password"
+        name="password"
+        type="password"
+        @keypress.enter="submit"
+      />
+      <BaseButton
+        :disabled="processingForm"
+        @click="submit"
+        class="sm:self-end"
+      >
+        {{ register ? 'Sign up' : 'Login' }}
+      </BaseButton>
+      <p v-if="authError" v-html="authError"></p>
     </div>
   </div>
 </template>
@@ -91,7 +111,7 @@ export default {
         })
         .catch(error => {
           this.processingForm = false
-          this.authError = error.full_messages.join('<br/>')
+          this.authError = error.full_messages?.join('<br/>')
         })
     },
   },

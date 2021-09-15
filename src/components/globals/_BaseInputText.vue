@@ -15,7 +15,8 @@
       "
       v-bind="$attrs"
       :autocomplete="autocomplete ? 'on' : 'off'"
-      class="block mt-2 w-full h-16 bg-white border sm:mt-4"
+      class="block p-3 w-full bg-white border"
+      :class="{ 'mt-2 sm:mt-4': label }"
     />
   </base-label>
 </template>

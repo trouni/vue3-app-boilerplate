@@ -16,59 +16,44 @@
         />
       </transition>
     </div>
+    <alert-modal v-if="alert" :alert="alert" />
   </div>
 </template>
 
 <script>
 import AppHeader from '@/components/AppHeader'
+import AlertModal from '@/components/AlertModal.vue'
 import { useStore } from 'vuex'
 import { computed, onMounted } from 'vue'
 
 export default {
-  components: { AppHeader },
+  components: { AppHeader, AlertModal },
 
   setup() {
     const store = useStore()
+
+    const alert = computed(() => store.getters.alert)
 
     onMounted(() => {
       store.dispatch('setDOMLoaded')
     })
 
-    return { appLoading: computed(() => store.getters['appLoading']) }
+    return { alert, appLoading: computed(() => store.getters['appLoading']) }
   },
 }
 </script>
 
-<style lang="scss">
-// Style loading bar between pages.
-// https://github.com/rstacruz/nprogress
+<style lang="postcss">
+/* === Vendor === */
 @import '~nprogress/nprogress.css';
+/* Style loading bar between pages. */
+/* https://github.com/rstacruz/nprogress */
+#nprogress .bar {
+  background: blue;
+}
+
+/* === Custom === */
 @import './assets/tailwind.css';
-
-*,
-*::before,
-*::after {
-  // Deactivate text selection on mobile
-  @apply select-none md:select-auto;
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  -ms-user-drag: none;
-  user-drag: none;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-input,
-textarea {
-  @apply select-text;
-}
-
-html {
-  // Fix the page to avoid overscroll on mobile app
-  @apply fixed md:static w-screen md:w-auto h-screen md:h-auto;
-  overscroll-behavior: none;
-}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -85,12 +70,5 @@ html {
 .v-enter,
 .v-leave-to {
   @apply opacity-0;
-}
-
-// ===
-// Vendor
-// ===
-#nprogress .bar {
-  background: blue;
 }
 </style>

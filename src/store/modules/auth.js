@@ -1,5 +1,7 @@
 import { logIn, logOut, signUp } from '@/api/auth'
-import { saveState, getSavedState, clearLocalStorage } from '@/utils/helpers'
+import getSavedState from '@/utils/get-saved-state'
+import saveState from '@/utils/save-state'
+import clearLocalStorage from '@/utils/clear-local-storage'
 import router from '@/router'
 
 export const state = {

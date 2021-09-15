@@ -1,38 +1,41 @@
 import { createStore } from 'vuex'
-import dispatchActionForAllModules from '@/utils/dispatchActionForAllModules'
+import dispatchActionForAllModules from '@/utils/dispatch-action-for-all-modules'
 import modules from './modules'
 
 export default createStore({
   state: {
     DOMLoaded: false,
-    fetchingRequest: false,
+    fetchingRequestStatus: false,
     alert: null,
   },
   getters: {
     DOMLoaded(state) {
       return state.DOMLoaded
     },
-    fetchingRequest(state) {
-      return state.fetchingRequest
+    fetchingRequestStatus(state) {
+      return state.fetchingRequestStatus
     },
     appLoading(state) {
-      return !state.DOMLoaded || state.fetchingRequest
+      return !state.DOMLoaded || state.fetchingRequestStatus
+    },
+    alert(state) {
+      return state.alert
     },
   },
   mutations: {
     SET_DOM_LOADED(state) {
       state.DOMLoaded = true
     },
-    SET_FETCHING_REQUEST(state, value) {
-      state.fetchingRequest = value
+    SET_FETCHING_STATUS(state, value) {
+      state.fetchingRequestStatus = value
     },
     SET_ALERT(state, alert) {
       state.alert = alert
     },
   },
   actions: {
-    setFetchingRequest({ commit }, value) {
-      commit('SET_FETCHING_REQUEST', value)
+    setFetchingStatus({ commit }, value) {
+      commit('SET_FETCHING_STATUS', value)
     },
     setDOMLoaded({ commit }) {
       commit('SET_DOM_LOADED')
